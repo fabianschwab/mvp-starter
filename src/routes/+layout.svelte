@@ -45,6 +45,8 @@
 		{/if}
 		{#if $page.data.session}
 			<HeaderAction icon={UserAvatar}>
+				<div class="welcome">Welcome</div>
+				<div class="user">{$page.data.session.user?.name}</div>
 				<HeaderPanelLinks>
 					<HeaderPanelDivider>Settings</HeaderPanelDivider>
 					<HeaderPanelLink href="/">Example Entry</HeaderPanelLink>
@@ -62,3 +64,14 @@
 		<slot />
 	</Grid>
 </Content>
+
+<style>
+	.user {
+		margin-left: 1rem;
+		font-size: x-large;
+	}
+	.welcome {
+		margin-top: 1rem;
+		margin-left: 1rem;
+	}
+</style>
