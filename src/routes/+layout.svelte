@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import 'carbon-components-svelte/css/all.css';
 	import {
 		Theme,
@@ -16,18 +16,12 @@
 	import { Logout, Awake, Asleep, UserAvatar, Login } from 'carbon-icons-svelte';
 	import { page } from '$app/stores';
 	import { signIn, signOut } from '@auth/sveltekit/client';
-	/**
-	 * Represents the active carbon theme
-	 * @type {string}
-	 */
-	let theme = 'g10';
+	import type { CarbonTheme } from 'carbon-components-svelte/types/Theme/Theme.svelte';
 
-	/**
-	 * The new carbon theme to switch to
-	 * @param {string} mode
-	 */
-	function handleTheme(mode) {
-		theme = mode;
+	let theme: CarbonTheme = 'g10';
+
+	function handleTheme(theme: CarbonTheme) {
+		theme = theme;
 	}
 </script>
 
