@@ -9,7 +9,7 @@ Basic parts of this starter:
 - Carbon Design Components
 - Carbon Design Icons
 - Base Layout
-- OpenShift Operator
+- KeyCloak
 - Env Variables
 - Protected API
 - Protected Paths and Components examples
@@ -37,6 +37,10 @@ If no KeyCloak is set up already follow the steps below for OpenShift:
    2. Go the *Networking* -> *Routes* tab click on the link to the KeyCloak instance
 3. Login on the KeyCloak UI with the credentials under *Workload* -> *Secrets* -> **credential-example-keycloak**
 
+As an alternative you can use a local KeyCloak instance via `docker-compose`.
+For setting it up, for local development, see instructions in the [./keycloak/README.md](./keycloak/README.md).
+After this the steps below are the same.
+
 ### KeyCloak
 
 1. Login to the KeyCloak Console
@@ -49,6 +53,10 @@ If no KeyCloak is set up already follow the steps below for OpenShift:
    4. Save changes
    5. The client secret can be found under *Installation*
 5. Provide the values in the `.env` file
+
+#### Demo Realm
+
+This demo realm is for importing into a KeyCloak instance to get quickly started with development.
 
 ### Protected Routes
 
