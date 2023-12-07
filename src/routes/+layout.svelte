@@ -23,9 +23,13 @@
 	function handleTheme(theme: CarbonTheme) {
 		theme = theme;
 	}
+
+	// Override design tokens
+	let tokens = {
+	};
 </script>
 
-<Theme bind:theme persist persistKey="__carbon-theme" />
+<Theme bind:theme persist persistKey="__carbon-theme" {tokens} />
 
 <Header href="/" company="IBM" platformName="MVP Name">
 	<svelte:fragment slot="skip-to-content">
