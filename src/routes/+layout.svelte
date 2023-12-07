@@ -20,8 +20,9 @@
 
 	let theme: CarbonTheme = 'g10';
 
-	function handleTheme(theme: CarbonTheme) {
-		theme = theme;
+	function handleTheme(newTheme: CarbonTheme) {
+		console.log('theme switch to ' + newTheme)
+		theme = newTheme;
 	}
 
 	// Override design tokens
