@@ -11,8 +11,8 @@ import {
 } from '$env/static/private';
 
 async function authorization({ event, resolve }) {
-	// Protect any routes under /api
-	if (event.url.pathname.startsWith('/api')) {
+	// Protect any routes under /api, except /api/health
+	if (event.url.pathname.startsWith('/api') && !event.url.pathname.startsWith('/api/health')) {
 		const session = await event.locals.getSession();
 
 		if (!session) {
