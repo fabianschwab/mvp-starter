@@ -5,31 +5,46 @@ Everything you need to build a Svelte project, powered by [`create-svelte`](http
 Basic parts of this starter:
 
 - SvelteKit
-- SvelteKitAuth
-- Carbon Design Components
-- Carbon Design Icons
-- Base Layout
-- KeyCloak
-- Env Variables
-- Protected API
-- Protected Paths and Components examples
+- SvelteKitAuth (Auth.js)
+  - KeyCloak already implemented
+  - Included compose file to spin up KeyCloak locally
+- IBM Carbon Design
+  - Components
+  - Icons
+  - Layout
+  - Theme switch (light / dark mode)
+- Protected Routes
+  - Protected API
+  - Protected Paths and Components examples
+- Health endpoints
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Once you've created a project and installed dependencies with `pnpm install` (or `npm install` or `yarn`), start a development server:
 
 ```bash
-npm run dev
+pnpm run dev
 
 # or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm run dev -- --open
+```
+
+### Development Container
+
+Prefer the devcontainer for local development. [VS Code Docs](https://code.visualstudio.com/docs/devcontainers/containers).
+
+**Hit:** If you cloned your repository over ssh you might add your private ssh key to the ssh-add agent.
+
+```shell
+# id_rsa = name of your private ssh key
+ssh-add $HOME/.ssh/id_rsa
 ```
 
 ## Authentication & Authorization
 
-This project is using [Auth.js](https://authjs.dev) on the client side. Multiple authentication providers can be used. In this case KeyCloak is predefined.
+This project is using [Auth.js](https://authjs.dev) on the client side. Multiple authentication providers can be used. In this case KeyCloak is already set up.
 
-If no KeyCloak is set up already follow the steps below for OpenShift:
+If no KeyCloak Server is set up already, follow the steps below for OpenShift:
 
 1. Install operator through the *Operator Hub*
 2. Goto the installed operator
@@ -56,7 +71,7 @@ After this the steps below are the same.
 
 #### Demo Realm
 
-This demo realm is for importing into a KeyCloak instance to get quickly started with development.
+This demo [keycloak/demoreal.json](./keycloak/demorealm.json) realm is for importing into a KeyCloak instance to get quickly started with development.
 
 ### Protected Routes
 
@@ -129,7 +144,7 @@ export const load: PageServerLoad = async ({ parent }) => {
 To create a production version of your app:
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 You can preview the production build with `npm run preview`.
