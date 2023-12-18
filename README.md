@@ -64,7 +64,7 @@ After this the steps below are the same.
 4. Create a new Client
    1. Add a client name and click save
    2. In the client *Settings* under **Access Type** choose **confidential**
-   3. Add `http://localhost/*` as a valid redirect url
+   3. Add `http://localhost:5173/*` as a valid redirect url
    4. Save changes
    5. The client secret can be found under *Installation*
 5. Provide the values in the `.env` file
