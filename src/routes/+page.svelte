@@ -3,11 +3,10 @@
 <p>Is sample app shows you how to have</p>
 <ul>
 	<li>
-		Unprotected routes like <a href="/unprotected">this one</a> which gets you to
-		<code>/unprotected</code>
+		<a href="/unprotected">Unprotected</a> routes like  which gets you to <code>/unprotected</code>
 	</li>
 	<li>
-		<a href="\protected">Protected</a> routes which redirects to to <code>/</code> again and to
+		<a href="\protected">Protected</a> routes which redirects to to <code>/auth/signin</code> again and to
 		<code>/protected</code>, when you are logged in.
 	</li>
 	<li>Complete protected API where the logic can be found in <code>+hooks.server.ts</code></li>
