@@ -1,7 +1,6 @@
 <script lang="ts">
 	import 'carbon-components-svelte/css/all.css';
 	import {
-		Theme,
 		Header,
 		HeaderUtilities,
 		SkipToContent,
@@ -13,35 +12,18 @@
 		HeaderPanelDivider,
 		Grid
 	} from 'carbon-components-svelte';
-	import { Logout, Awake, Asleep, UserAvatar, Login } from 'carbon-icons-svelte';
+	import { Logout, UserAvatar, Login } from 'carbon-icons-svelte';
 	import { page } from '$app/stores';
-	import { signIn, signOut } from '@auth/sveltekit/client';
-	import type { CarbonTheme } from 'carbon-components-svelte/types/Theme/Theme.svelte';
-
-	let theme: CarbonTheme = 'g10';
-
-	function handleTheme(newTheme: CarbonTheme) {
-		console.log('theme switch to ' + newTheme)
-		theme = newTheme;
-	}
-
-	// Override design tokens
-	let tokens = {
-	};
+	import { signIn, signOut } from '@auth/sveltekit/client';	
+	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 </script>
-
-<Theme bind:theme persist persistKey="__carbon-theme" {tokens} />
 
 <Header href="/" company="IBM" platformName="MVP Name">
 	<svelte:fragment slot="skip-to-content">
 		<SkipToContent />
 	</svelte:fragment>
 	<HeaderUtilities>
-		{#if theme === 'g10'}
-			<HeaderActionLink icon={Asleep} on:click={() => handleTheme('g90')} />
-		{:else}
-			<HeaderActionLink icon={Awake} on:click={() => handleTheme('g10')} />
-		{/if}
+		<ThemeSwitcher/>
 		{#if $page.data.session}
 			<HeaderAction icon={UserAvatar}>
 				<div class="welcome">Welcome</div>

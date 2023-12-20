@@ -25,6 +25,20 @@ async function authentication({ event, resolve }) {
 	return resolve(event);
 }
 
+async function themeSetter({ event, resolve }) {
+	let theme = event.cookies.get('theme');
+
+	if (!theme) {
+		// Default theme when nothing set
+		theme = 'g10';
+	}
+	return await resolve(event, {
+		transformPageChunk: ({ html }) => {
+			return html.replace('theme=""', `theme="${theme}"`);
+		}
+	});
+}
+
 // First handle authentication
 // Each function acts as a middleware, receiving the request handle
 // And returning a handle which gets passed to the next function
@@ -40,5 +54,6 @@ export const handle: Handle = sequence(
 		secret: AUTH_SECRET,
 		trustHost: true
 	}),
-	authentication
+	authentication,
+	themeSetter
 );
