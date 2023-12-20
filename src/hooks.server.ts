@@ -10,7 +10,7 @@ import {
 	AUTH_SECRET
 } from '$env/static/private';
 
-async function authorization({ event, resolve }) {
+async function authentication({ event, resolve }) {
 	// Protect any routes under /api, except /api/health
 	if (event.url.pathname.startsWith('/api') && !event.url.pathname.startsWith('/api/health')) {
 		const session = await event.locals.getSession();
@@ -25,7 +25,7 @@ async function authorization({ event, resolve }) {
 	return resolve(event);
 }
 
-// First handle authentication, then authorization
+// First handle authentication
 // Each function acts as a middleware, receiving the request handle
 // And returning a handle which gets passed to the next function
 export const handle: Handle = sequence(
@@ -40,5 +40,5 @@ export const handle: Handle = sequence(
 		secret: AUTH_SECRET,
 		trustHost: true
 	}),
-	authorization
+	authentication
 );
