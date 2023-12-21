@@ -16,8 +16,8 @@ async function authentication({ event, resolve }) {
 		const session = await event.locals.getSession();
 
 		if (!session) {
-			error(401, 'No user is signed in.');
-			//throw redirect(303, "/auth")
+			error(401, 'Unauthorized');
+			// redirect(303, "/auth")
 		}
 	}
 
