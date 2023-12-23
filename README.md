@@ -150,3 +150,10 @@ pnpm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## API Documentation
+
+For the API docs SwaggerUI is used and reachable under [http://localhost:5173/api/docs](http://localhost:5173/api/docs).
+You need to be logged in to access the docs.
+
+At the time, there is no automated way to create the api definition out from svelte pages. This must be done manually and defined in the `swagger.json` file in `/src/routes/api/docs/swagger.json`.

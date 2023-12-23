@@ -18,6 +18,10 @@
 	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 </script>
 
+<svelte:head>
+	<title>IBM - SvelteKit</title>
+</svelte:head>
+
 <Header href="/" company="IBM" platformName="MVP Name">
 	<svelte:fragment slot="skip-to-content">
 		<SkipToContent />

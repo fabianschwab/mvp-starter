@@ -10,6 +10,7 @@
 		<code>/protected</code>, when you are logged in.
 	</li>
 	<li>Complete protected API where the logic can be found in <code>+hooks.server.ts</code></li>
+	<li>SwaggerUI for <a href="/api/docs">API Documentation</a></li>
 </ul>
 <p>
 	If you want the complete application to be secure it's maybe better to make exceptions paths in
