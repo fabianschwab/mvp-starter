@@ -40,6 +40,8 @@ Prefer the devcontainer for local development. [VS Code Docs](https://code.visua
 ssh-add $HOME/.ssh/id_rsa
 ```
 
+In case there are some issues with the *Authentication & Authorization* see section [Running Production Build without HTTPS](#running-production-build-without-https) for bypassing switch to https.
+
 ## Authentication & Authorization
 
 This project is using [Auth.js](https://authjs.dev) on the client side. Multiple authentication providers can be used. In this case KeyCloak is already set up.
@@ -150,6 +152,18 @@ pnpm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+### Running Production Build without HTTPS
+
+If you try to run the production build locally or on docker and need to skip the HTTPS protocol, you need to the the `ORIGIN` environment variable.
+
+```shell
+# When starting the build 
+export ORIGIN=http://localhost:<port> node build
+
+# When Starting the docker container
+docker run -p <host_port>:<container_port> -e ORIGIN=http://localhost:<container_port> --env-file .env -d --rm <image_name>
+```
 
 ## API Documentation
 
