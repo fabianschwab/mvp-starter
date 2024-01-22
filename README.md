@@ -152,17 +152,32 @@ pnpm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+> Note that the ports differ:
+>
+> - Preview port 4173
+> - Production port 3000
+>
+> Ports can be overwritten
+
+### Docker Build
+
+For a production build use the provided docker file
+
+```shell
+docker build -t <image-name> .
+```
 
 ### Running Production Build without HTTPS
 
 If you try to run the production build locally or on docker and need to skip the HTTPS protocol, you need to the the `ORIGIN` environment variable.
 
 ```shell
-# When starting the build 
-export ORIGIN=http://localhost:<port> node build
+# When serving the build 
+export ORIGIN=http://localhost:5173 PORT=5173 node build
 
-# When Starting the docker container
-docker run -p <host_port>:<container_port> -e ORIGIN=http://localhost:<container_port> --env-file .env -d --rm <image_name>
+# When running the docker container
+# Change the .env file according to the comments there
+docker run -p 5173:5173 --rm --env-file .env --name <image-name> <image-name>
 ```
 
 ## API Documentation
