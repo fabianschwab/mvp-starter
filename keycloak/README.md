@@ -56,3 +56,22 @@ Now you should be rediurected to the newly created user.
 4. Click **Save**
 
 Start the SvelteKit application an log in.
+
+### Creating an Administrator User for a Realm
+
+1. Create the realm
+   From the Master realm, create a new realm. Be sure to be in that new realm (select it in the list under master realm)
+2. Create an admin role for the new created realm
+   - In the menu (to the left side), under **Configure** main title, select **Roles**
+   - In the Realm Roles tab, click on the button **Add Role** and give it a name (admin) and a description (realm admin role) and switch on the **Composite Role**
+   - In the new revealed section (Composite Roles), type in the **client roles** field: `realm-management`, then select it.
+   - Select all the available elements in that selection from **Available Roles**, click [Add selected] button.
+   - /!\ This role is only available to this realm and will affect only users related to the realm.
+3. Affect the admin role to a user
+   - Still in the same realm, create or choose a user you want it to become the admin
+   - Go to its **Role Mappings** tab, and send the Available Roles `admin` to Assigned Roles.
+
+Try to login http://<keycloak-instance-url>/auth/admin/REALM_NAME/console (replace REALM_NAME with realm name in which you created the user)
+and adjust permissions of this realm admin user (from another browser with the master admin account).
+For example, the new admin realm user can delete role (that is not normal),
+it can do many thing on their realm you don't want it to do explicitely... (I guess).
