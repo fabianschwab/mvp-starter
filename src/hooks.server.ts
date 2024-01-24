@@ -1,16 +1,11 @@
 import { SvelteKitAuth } from '@auth/sveltekit';
-import KeyCloak from '@auth/core/providers/keycloak';
+import Keycloak from '@auth/core/providers/keycloak';
 import { error, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 
-import {
-	KEYCLOAK_CLIENT_ID,
-	KEYCLOAK_CLIENT_SECRET,
-	KEYCLOAK_ISSUER,
-	AUTH_SECRET
-} from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
-async function authentication({ event, resolve }) {
+const authentication: Handle = async ({ event, resolve }) => {
 	// Protect any routes under /api, except /api/health
 	if (event.url.pathname.startsWith('/api') && !event.url.pathname.startsWith('/api/health')) {
 		const session = await event.locals.getSession();
@@ -23,9 +18,9 @@ async function authentication({ event, resolve }) {
 
 	// If the request is still here, just proceed as normally
 	return resolve(event);
-}
+};
 
-async function themeSetter({ event, resolve }) {
+const themeSetter: Handle = async ({ event, resolve }) => {
 	let theme = event.cookies.get('theme');
 
 	if (!theme) {
@@ -37,7 +32,7 @@ async function themeSetter({ event, resolve }) {
 			return html.replace('theme=""', `theme="${theme}"`);
 		}
 	});
-}
+};
 
 // First handle authentication
 // Each function acts as a middleware, receiving the request handle
@@ -45,13 +40,13 @@ async function themeSetter({ event, resolve }) {
 export const handle: Handle = sequence(
 	SvelteKitAuth({
 		providers: [
-			KeyCloak({
-				clientId: KEYCLOAK_CLIENT_ID,
-				clientSecret: KEYCLOAK_CLIENT_SECRET,
-				issuer: KEYCLOAK_ISSUER
+			Keycloak({
+				clientId: env.KEYCLOAK_CLIENT_ID,
+				clientSecret: env.KEYCLOAK_CLIENT_SECRET,
+				issuer: env.KEYCLOAK_ISSUER
 			})
 		],
-		secret: AUTH_SECRET,
+		secret: env.AUTH_SECRET,
 		trustHost: true
 	}),
 	authentication,

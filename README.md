@@ -143,6 +143,9 @@ export const load: PageServerLoad = async ({ parent }) => {
 
 ## Building
 
+For specific build information see the official [docs](https://kit.svelte.dev/docs/building-your-app) and especially the
+[node build docs](https://kit.svelte.dev/docs/adapter-node) for which this starter is meant for.
+
 To create a production version of your app:
 
 ```bash
