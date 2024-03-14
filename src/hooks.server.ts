@@ -8,7 +8,7 @@ import { env } from '$env/dynamic/private';
 const authentication: Handle = async ({ event, resolve }) => {
 	// Protect any routes under /api, except /api/health
 	if (event.url.pathname.startsWith('/api') && !event.url.pathname.startsWith('/api/health')) {
-		const session = await event.locals.getSession();
+		const session = await event.locals.auth();
 
 		if (!session) {
 			error(401, 'Unauthorized');

@@ -32,7 +32,7 @@ After the realm is created you can switch to it in the dropdown.
 
 1. In the **DemoRealm** go to the **client**
 2. Select the **DemoClient**
-3. Go to te **Credentials** tab
+3. Go to the **Credentials** tab
 4. In the **Client secret** section generate a new client secret and copy it to the **.env** file (*KEYCLOAK_CLIENT_SECRET*)
 5. Also fill in the *KEYCLOAK_CLIENT_ID* (*demorealm*) into the **.env** file.
 6. For the *KEYCLOAK_ISSUER* use *<http://localhost:8180/realms/DemoRealm>*
