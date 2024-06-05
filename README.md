@@ -8,6 +8,7 @@ Basic parts of this starter:
 - SvelteKitAuth (Auth.js)
   - KeyCloak already implemented
   - Included compose file to spin up KeyCloak locally
+  - IBM AppID also already implemented
 - IBM Carbon Design
   - Components
   - Icons
@@ -44,7 +45,9 @@ In case there are some issues with the *Authentication & Authorization* see sect
 
 ## Authentication & Authorization
 
-This project is using [Auth.js](https://authjs.dev) on the client side. Multiple authentication providers can be used. In this case KeyCloak is already set up.
+This project is using [Auth.js](https://authjs.dev) on the client side. Multiple authentication providers can be used. In this case KeyCloak and IBM AppID is already set up.
+
+Choose the provider you want via the `.env` file with the necessary values.
 
 If no KeyCloak Server is set up already, follow the steps below for OpenShift:
 
