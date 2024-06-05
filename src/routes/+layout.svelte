@@ -14,8 +14,8 @@
 	} from 'carbon-components-svelte';
 	import { Logout, UserAvatar, Login } from 'carbon-icons-svelte';
 	import { page } from '$app/stores';
-	import { signIn, signOut } from '@auth/sveltekit/client';	
-	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
+	import { signIn, signOut } from '@auth/sveltekit/client';
+	import { ThemeSwitcher, Chat } from '$lib/components';
 </script>
 
 <svelte:head>
@@ -27,7 +27,7 @@
 		<SkipToContent />
 	</svelte:fragment>
 	<HeaderUtilities>
-		<ThemeSwitcher/>
+		<ThemeSwitcher />
 		{#if $page.data.session}
 			<HeaderAction icon={UserAvatar}>
 				<div class="welcome">Welcome</div>
@@ -43,12 +43,14 @@
 		{/if}
 	</HeaderUtilities>
 </Header>
-
 <Content>
 	<Grid fullWidth>
 		<slot />
 	</Grid>
 </Content>
+{#if $page.data.session}
+	<Chat />
+{/if}
 
 <style>
 	.user {
