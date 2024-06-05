@@ -39,7 +39,7 @@
 			</HeaderAction>
 			<HeaderActionLink icon={Logout} on:click={() => signOut()} />
 		{:else}
-			<HeaderActionLink icon={Login} on:click={() => signIn('keycloak')} />
+			<HeaderActionLink icon={Login} on:click={() => signIn(import.meta.env.VITE_AUTH_PROVIDER)} />
 		{/if}
 	</HeaderUtilities>
 </Header>
