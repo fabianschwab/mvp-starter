@@ -14,6 +14,7 @@ Basic parts of this starter:
   - Icons
   - Layout
   - Theme switch (light / dark mode)
+- Tailwindcss for easier custom design
 - Protected Routes
   - Protected API
   - Protected Paths and Components examples

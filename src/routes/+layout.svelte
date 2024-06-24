@@ -16,6 +16,7 @@
 	import { page } from '$app/stores';
 	import { signIn, signOut } from '@auth/sveltekit/client';
 	import { ThemeSwitcher, Chat } from '$lib/components';
+	import '../app.css';
 </script>
 
 <svelte:head>
