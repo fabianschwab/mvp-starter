@@ -15,7 +15,7 @@
 	import { Logout, UserAvatar, Login } from 'carbon-icons-svelte';
 	import { page } from '$app/stores';
 	import { signIn, signOut } from '@auth/sveltekit/client';
-	import { ThemeSwitcher, Chat } from '$lib/components';
+	import { ThemeSwitcher } from '$lib/components';
 	import '../app.css';
 </script>
 
@@ -40,7 +40,7 @@
 			</HeaderAction>
 			<HeaderActionLink icon={Logout} on:click={() => signOut()} />
 		{:else}
-			<HeaderActionLink icon={Login} on:click={() => signIn(import.meta.env.VITE_AUTH_PROVIDER)} />
+			<HeaderActionLink icon={Login} on:click={() => signIn()} />
 		{/if}
 	</HeaderUtilities>
 </Header>
@@ -49,9 +49,6 @@
 		<slot />
 	</Grid>
 </Content>
-{#if $page.data.session}
-	<Chat />
-{/if}
 
 <style>
 	.user {
