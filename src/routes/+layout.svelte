@@ -17,6 +17,7 @@
 	import { signIn, signOut } from '@auth/sveltekit/client';
 	import { ThemeSwitcher } from '$lib/components';
 	import '../app.css';
+	import { goto } from '$app/navigation';
 </script>
 
 <svelte:head>
@@ -40,7 +41,7 @@
 			</HeaderAction>
 			<HeaderActionLink icon={Logout} on:click={() => signOut()} />
 		{:else}
-			<HeaderActionLink icon={Login} on:click={() => signIn()} />
+			<HeaderActionLink icon={Login} on:click={() => goto('/auth/signin')} />
 		{/if}
 	</HeaderUtilities>
 </Header>

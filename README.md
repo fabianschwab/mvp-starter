@@ -20,6 +20,10 @@ Basic parts of this starter:
   - Protected Paths and Components examples
 - Health endpoints
 
+## Quick start
+
+After cloning the repository run the `./run.sh` script. This will install the dependencies, ask you for all necessary environment variables and starts the dev server.
+
 ## Developing
 
 Once you've created a project and installed dependencies with `pnpm install` (or `npm install` or `yarn`), start a development server:
@@ -42,7 +46,7 @@ Prefer the devcontainer for local development. [VS Code Docs](https://code.visua
 ssh-add $HOME/.ssh/id_rsa
 ```
 
-In case there are some issues with the *Authentication & Authorization* see section [Running Production Build without HTTPS](#running-production-build-without-https) for bypassing switch to https.
+In case there are some issues with the _Authentication & Authorization_ see section [Running Production Build without HTTPS](#running-production-build-without-https) for bypassing switch to https.
 
 ## Authentication & Authorization
 
@@ -52,11 +56,11 @@ Choose the provider you want via the `.env` file with the necessary values.
 
 If no KeyCloak Server is set up already, follow the steps below for OpenShift:
 
-1. Install operator through the *Operator Hub*
+1. Install operator through the _Operator Hub_
 2. Goto the installed operator
    1. Create an KeyCloak instance (this will take several minutes)
-   2. Go the *Networking* -> *Routes* tab click on the link to the KeyCloak instance
-3. Login on the KeyCloak UI with the credentials under *Workload* -> *Secrets* -> **credential-example-keycloak**
+   2. Go the _Networking_ -> _Routes_ tab click on the link to the KeyCloak instance
+3. Login on the KeyCloak UI with the credentials under _Workload_ -> _Secrets_ -> **credential-example-keycloak**
 
 As an alternative you can use a local KeyCloak instance via `docker-compose`.
 For setting it up, for local development, see instructions in the [./keycloak/README.md](./keycloak/README.md).
@@ -69,10 +73,10 @@ After this the steps below are the same.
 3. Create your needed Users
 4. Create a new Client
    1. Add a client name and click save
-   2. In the client *Settings* under **Access Type** choose **confidential**
+   2. In the client _Settings_ under **Access Type** choose **confidential**
    3. Add `http://localhost:5173/*` as a valid redirect url
    4. Save changes
-   5. The client secret can be found under *Installation*
+   5. The client secret can be found under _Installation_
 5. Provide the values in the `.env` file
 
 #### Demo Realm
@@ -97,7 +101,7 @@ Restricting certain URIs is better for many projects because of some benefits li
 
 #### Per Component
 
-When using *per component* authorization be aware of some architectural flaws mentioned in [this part of the documentation](https://authjs.dev/reference/sveltekit#per-component).
+When using _per component_ authorization be aware of some architectural flaws mentioned in [this part of the documentation](https://authjs.dev/reference/sveltekit#per-component).
 
 Despite this, this is the simplest way to protect pages.
 
@@ -108,14 +112,14 @@ A quick guid how to use this.
 Put the logic in the +page.server.ts file:
 
 ```jsx
-import { redirect } from "@sveltejs/kit"
-import type { PageServerLoad } from "./$types"
+import { redirect } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
-  const session = await event.locals.getSession()
-  if (!session?.user) throw redirect(303, "/auth")
-  return {}
-}
+	const session = await event.locals.getSession();
+	if (!session?.user) throw redirect(303, '/auth');
+	return {};
+};
 ```
 
 ##### Protect a components which are using layouts
@@ -123,13 +127,13 @@ export const load: PageServerLoad = async (event) => {
 For the `+layout.server.ts` use:
 
 ```jsx
-import type { LayoutServerLoad } from "./$types"
+import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async (event) => {
-  return {
-    session: await event.locals.getSession()
-  }
-}
+	return {
+		session: await event.locals.getSession()
+	};
+};
 ```
 
 and the `+page.server.ts`
@@ -139,9 +143,9 @@ import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ parent }) => {
- const { session } = await parent();
- if (!session?.user) throw redirect(303, '/');
- return { session };
+	const { session } = await parent();
+	if (!session?.user) throw redirect(303, '/');
+	return { session };
 };
 ```
 
@@ -179,7 +183,7 @@ docker build -t <image-name> .
 If you try to run the production build locally or on docker and need to skip the HTTPS protocol, you need to the the `ORIGIN` environment variable.
 
 ```shell
-# When serving the build 
+# When serving the build
 export ORIGIN=http://localhost:5173 PORT=5173 node build
 
 # When running the docker container
