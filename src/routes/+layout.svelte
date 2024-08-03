@@ -14,16 +14,17 @@
 	} from 'carbon-components-svelte';
 	import { Logout, UserAvatar, Login } from 'carbon-icons-svelte';
 	import { page } from '$app/stores';
-	import { signIn, signOut } from '@auth/sveltekit/client';
+	import { signOut } from '@auth/sveltekit/client';
 	import { ThemeSwitcher } from '$lib/components';
 	import '../app.css';
 	import { goto } from '$app/navigation';
+	import Toasts from '$lib/components/Toasts.svelte';
 </script>
 
 <svelte:head>
 	<title>IBM - SvelteKit</title>
 </svelte:head>
-
+<Toasts />
 <Header href="/" company="IBM" platformName="MVP Name">
 	<svelte:fragment slot="skip-to-content">
 		<SkipToContent />
