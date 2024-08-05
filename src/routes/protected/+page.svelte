@@ -1,11 +1,11 @@
 <script lang="ts">
-	export let data;
+	import { page } from '$app/stores';
 </script>
 
 <h1>This is a protected route over this component.</h1>
 <p>You see this, because you are logged in.</p>
 <p>Your session data:</p>
-<pre>{JSON.stringify(data, null, 2)}</pre>
+<pre>{JSON.stringify($page.data.session, null, 2)}</pre>
 <p>
 	Note that nested paths (like: <code>/protected/example</code>) are not protected here. This is the
 	<strong>per component</strong>

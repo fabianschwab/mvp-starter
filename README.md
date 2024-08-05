@@ -99,6 +99,9 @@ Restricting certain URIs is better for many projects because of some benefits li
 - No code duplication between components
 - Very easy to modify
 
+**Important:** All sub-directories of a protected path must include the `+page.server.ts` file. In case there is a link from a not protected route to a sub-route of a protected one (and this file is missing) the `hooks.server.ts` is not triggered, because of pre-rendering and client side navigation.
+E.g.: linking from `/unprotected` to `/protected/should-be-protected`, in the `protected` and `/protected/should-be-protected` folder must be a `+page.server.ts` file.
+
 #### Per Component
 
 When using _per component_ authorization be aware of some architectural flaws mentioned in [this part of the documentation](https://authjs.dev/reference/sveltekit#per-component).
