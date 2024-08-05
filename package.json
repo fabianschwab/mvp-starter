@@ -16,7 +16,6 @@
 		"@sveltejs/adapter-node": "^4.0.1",
 		"@sveltejs/kit": "^2.4.3",
 		"@sveltejs/vite-plugin-svelte": "^3.0.1",
-		"@types/swagger-ui": "^3.52.4",
 		"@typescript-eslint/eslint-plugin": "^6.19.1",
 		"@typescript-eslint/parser": "^6.19.1",
 		"autoprefixer": "^10.4.19",
@@ -39,7 +38,6 @@
 	"dependencies": {
 		"@auth/core": "^0.22.0",
 		"@auth/sveltekit": "^0.8.0",
-		"dotenv": "^16.4.0",
-		"swagger-ui": "^5.11.0"
+		"dotenv": "^16.4.0"
 	}
 }
