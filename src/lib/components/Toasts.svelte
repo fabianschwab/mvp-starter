@@ -4,7 +4,7 @@
 </script>
 
 {#if $toasts}
-	<div class="absolute top-12 right-1 overflow-scroll z-50 toasts">
+	<div class="fixed top-12 right-1 overflow-scroll z-50 toasts">
 		{#each $toasts as toast (toast.id)}
 			<ToastNotification
 				on:close={() => {
@@ -18,6 +18,7 @@
 
 <style>
 	.toasts {
-		height: calc(100vh - 4rem);
+		min-height: max-content;
+		max-height: calc(100vh - 4rem);
 	}
 </style>
