@@ -1,24 +1,7 @@
-import { SvelteKitAuth } from '@auth/sveltekit';
 import { redirect, error, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
+import { authConfig } from '$lib/server/authConfig';
 import { env } from '$env/dynamic/private';
-import type { Provider } from '@auth/core/providers';
-import { appId, keycloak } from '$lib/server/AuthProvider';
-
-const providersSelection = (): Provider[] => {
-	const providers: Provider[] = [];
-	if (env.KEYCLOAK_CLIENT_ID && env.KEYCLOAK_CLIENT_SECRET && env.KEYCLOAK_ISSUER) {
-		providers.push(keycloak);
-	}
-	if (env.APPID_CLIENT_ID && env.APPID_CLIENT_SECRET && env.APPID_OAUTHSERVERURL) {
-		providers.push(appId);
-	}
-	if (providers.length === 0) {
-		console.error('No auth providers configured.');
-	}
-	return providers;
-};
-
 const authentication: Handle = async ({ event, resolve }) => {
 	/**
 	 * All routes are protected by default
@@ -82,12 +65,4 @@ const themeSetter: Handle = async ({ event, resolve }) => {
 // First handle authentication
 // Each function acts as a middleware, receiving the request handle
 // And returning a handle which gets passed to the next function
-export const handle: Handle = sequence(
-	SvelteKitAuth({
-		providers: providersSelection(),
-		secret: env.AUTH_SECRET,
-		trustHost: true
-	}),
-	authentication,
-	themeSetter
-);
+export const handle: Handle = sequence(authConfig, authentication, themeSetter);

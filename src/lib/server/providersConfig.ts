@@ -5,10 +5,12 @@ import {
 	APPID_CLIENT_ID,
 	APPID_CLIENT_SECRET,
 	APPID_DISCOVERYENDPOINT,
-	APPID_OAUTHSERVERURL
+	APPID_OAUTHSERVERURL,
+	CREDENTIAL_PASSWORD
 } from '$env/static/private';
 import type { Provider } from '@auth/core/providers';
 import Keycloak from '@auth/core/providers/keycloak';
+import Credentials from '@auth/sveltekit/providers/credentials';
 
 export const appId: Provider = {
 	id: 'appid',
@@ -37,4 +39,16 @@ export const keycloak: Provider = Keycloak({
 	clientId: KEYCLOAK_CLIENT_ID,
 	clientSecret: KEYCLOAK_CLIENT_SECRET,
 	issuer: KEYCLOAK_ISSUER
+});
+
+export const credentials: Provider = Credentials({
+	credentials: { password: { label: 'Password', type: 'password' } },
+	authorize(c) {
+		if (c.password !== CREDENTIAL_PASSWORD) return null;
+		return {
+			id: 'id123',
+			name: 'John Appleseed',
+			email: 'john@appleseed.com'
+		};
+	}
 });
