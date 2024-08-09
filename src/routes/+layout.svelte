@@ -14,10 +14,9 @@
 	} from 'carbon-components-svelte';
 	import { Logout, UserAvatar, Login } from 'carbon-icons-svelte';
 	import { page } from '$app/stores';
-	import { signOut } from '@auth/sveltekit/client';
+	import { signIn, signOut } from '@auth/sveltekit/client';
 	import { ThemeSwitcher } from '$lib/components';
 	import '../app.css';
-	import { goto } from '$app/navigation';
 	import Toasts from '$lib/components/Toasts.svelte';
 </script>
 
@@ -42,7 +41,7 @@
 			</HeaderAction>
 			<HeaderActionLink icon={Logout} on:click={() => signOut()} />
 		{:else}
-			<HeaderActionLink icon={Login} on:click={() => goto('/auth/signin')} />
+			<HeaderActionLink icon={Login} on:click={() => signIn()} />
 		{/if}
 	</HeaderUtilities>
 </Header>

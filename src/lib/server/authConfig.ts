@@ -1,32 +1,8 @@
 import { env } from '$env/dynamic/private';
 import { SvelteKitAuth } from '@auth/sveltekit';
 
-import Credentials from '@auth/sveltekit/providers/credentials';
 import type { Provider } from '@auth/sveltekit/providers';
 import { appId, credentials, keycloak } from '$lib/server/providersConfig';
-
-const providers: Provider[] = [
-	Credentials({
-		credentials: { password: { label: 'Password', type: 'password' } },
-		authorize(c) {
-			if (c.password !== 'password') return null;
-			return {
-				id: 'test',
-				name: 'Test User',
-				email: 'test@example.com'
-			};
-		}
-	})
-];
-
-export const providerMap = providers.map((provider) => {
-	if (typeof provider === 'function') {
-		const providerData = provider();
-		return { id: providerData.id, name: providerData.name };
-	} else {
-		return { id: provider.id, name: provider.name };
-	}
-});
 
 const providersSelection = (): Provider[] => {
 	const providers: Provider[] = [];
@@ -43,8 +19,13 @@ const providersSelection = (): Provider[] => {
 	return providers;
 };
 
-export const authConfig = SvelteKitAuth({
-	providers: providersSelection(),
+const providers: Provider[] = providersSelection();
+
+export const { handle, signIn, signOut } = SvelteKitAuth({
+	providers: providers,
 	secret: env.AUTH_SECRET,
-	trustHost: true
+	trustHost: true,
+	pages: {
+		signIn: '/signin'
+	}
 });

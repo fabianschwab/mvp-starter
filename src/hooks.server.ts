@@ -1,6 +1,6 @@
 import { redirect, error, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
-import { authConfig } from '$lib/server/authConfig';
+import { handle as authConfig } from '$lib/server/authConfig';
 import { env } from '$env/dynamic/private';
 const authentication: Handle = async ({ event, resolve }) => {
 	/**
@@ -17,7 +17,7 @@ const authentication: Handle = async ({ event, resolve }) => {
 	 * "/api/health" & "/api/health/ready": API health checks for kubernetes
 	 * "/unprotected": for giving an example of a non protected route
 	 */
-	const exceptions = ['/', '/api/health', '/api/health/ready', '/unprotected'];
+	const exceptions = ['/', '/signin', '/signout', '/api/health', '/api/health/ready', '/unprotected'];
 
 	if (exceptions.includes(event.url.pathname)) {
 		return resolve(event);
