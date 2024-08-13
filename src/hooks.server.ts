@@ -17,14 +17,23 @@ const authentication: Handle = async ({ event, resolve }) => {
 	 * "/api/health" & "/api/health/ready": API health checks for kubernetes
 	 * "/unprotected": for giving an example of a non protected route
 	 */
-	const exceptions = ['/', '/signin', '/signout', '/api/health', '/api/health/ready', '/unprotected'];
+	const exceptions = [
+		'/',
+		'/signin',
+		'/signout',
+		'/api/health',
+		'/api/health/ready',
+		'/unprotected'
+	];
 
 	if (exceptions.includes(event.url.pathname)) {
+		console.debug('DEBUG: ', `Route ${event.url.pathname} is public.`);
 		return resolve(event);
 	}
 
 	// API
 	if (event.url.pathname.startsWith('/api')) {
+		console.debug('DEBUG: ', `Secure API route ${event.url.pathname} is called.`);
 		const authHeader = event.request.headers.get('Authorization');
 
 		if (!authHeader) {
@@ -41,6 +50,7 @@ const authentication: Handle = async ({ event, resolve }) => {
 	// Non API
 	let session = await event.locals.auth();
 	if (session) {
+		console.debug('DEBUG: ', `Session protected route ${event.url.pathname} is called.`);
 		return resolve(event);
 	}
 

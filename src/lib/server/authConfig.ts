@@ -1,4 +1,9 @@
-import { env } from '$env/dynamic/private';
+import {
+	PUBLIC_ENABLE_APPID,
+	PUBLIC_ENABLE_CREDENTIAL,
+	PUBLIC_ENABLE_KEYCLOAK
+} from '$env/static/public';
+import { AUTH_SECRET } from '$env/static/private';
 import { SvelteKitAuth } from '@auth/sveltekit';
 
 import type { Provider } from '@auth/sveltekit/providers';
@@ -6,14 +11,16 @@ import { appId, credentials, keycloak } from '$lib/server/providersConfig';
 
 const providersSelection = (): Provider[] => {
 	const providers: Provider[] = [];
-	if (env.KEYCLOAK_CLIENT_ID && env.KEYCLOAK_CLIENT_SECRET && env.KEYCLOAK_ISSUER) {
+	if (PUBLIC_ENABLE_KEYCLOAK === 'true') {
+		console.info('INFO: ', 'KeyCloak configured as auth provider.');
 		providers.push(keycloak);
 	}
-	if (env.APPID_CLIENT_ID && env.APPID_CLIENT_SECRET && env.APPID_OAUTHSERVERURL) {
+	if (PUBLIC_ENABLE_APPID === 'true') {
+		console.info('INFO: ', 'AppID configured as auth provider.');
 		providers.push(appId);
 	}
-	if (providers.length === 0) {
-		console.error('No auth providers configured. Fallback to credentials');
+	if (PUBLIC_ENABLE_CREDENTIAL === 'true') {
+		console.info('INFO: ', 'Credentials configured as auth provider.');
 		providers.push(credentials);
 	}
 	return providers;
@@ -23,7 +30,7 @@ const providers: Provider[] = providersSelection();
 
 export const { handle, signIn, signOut } = SvelteKitAuth({
 	providers: providers,
-	secret: env.AUTH_SECRET,
+	secret: AUTH_SECRET,
 	trustHost: true,
 	pages: {
 		signIn: '/signin'

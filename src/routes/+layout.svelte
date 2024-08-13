@@ -17,7 +17,7 @@
 	import { signIn, signOut } from '@auth/sveltekit/client';
 	import { ThemeSwitcher } from '$lib/components';
 	import '../app.css';
-	import Toasts from '$lib/components/Toasts.svelte';
+	import { Toasts } from '$lib/components';
 </script>
 
 <svelte:head>
