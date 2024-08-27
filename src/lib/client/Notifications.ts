@@ -1,6 +1,6 @@
-import { writable } from 'svelte/store';
+import { persisted } from 'svelte-persisted-store';
 
-export const toasts = writable<{ id: string; props: Toast }[]>([]);
+export const toasts = persisted<{ id: string; props: Toast }[]>('toasts', []);
 
 export const addToast = (toast: Toast) => {
 	const id = self.crypto.randomUUID();

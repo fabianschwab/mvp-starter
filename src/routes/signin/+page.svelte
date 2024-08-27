@@ -4,6 +4,7 @@
 		PUBLIC_ENABLE_CREDENTIAL,
 		PUBLIC_ENABLE_KEYCLOAK
 	} from '$env/static/public';
+	import { addToast, ToastKind } from '$lib/client/Notifications';
 	import { signIn } from '@auth/sveltekit/client';
 	import { Button, TextInput } from 'carbon-components-svelte';
 	import { IbmCloudAppId, Password, Unlocked } from 'carbon-icons-svelte';
@@ -27,7 +28,15 @@
 					size="field"
 					kind="primary"
 					icon={Unlocked}
-					on:click={() => signIn('credentials', { password })}>Sign In</Button
+					on:click={() => {
+						signIn('credentials', { password });
+						addToast({
+							title: 'Signed in with shared user!',
+							subtitle:
+								'Shared users are not recommended, because of side effects when more real world users change data. Please use your own user account.',
+							kind: ToastKind.Warning
+						});
+					}}>Sign In</Button
 				>
 			</div>
 		{/if}

@@ -18,6 +18,7 @@
 	import { ThemeSwitcher } from '$lib/components';
 	import '../app.css';
 	import { Toasts } from '$lib/components';
+	import { toasts } from '$lib/client/Notifications';
 </script>
 
 <svelte:head>
@@ -39,7 +40,13 @@
 					<HeaderPanelLink href="/">Example Entry</HeaderPanelLink>
 				</HeaderPanelLinks>
 			</HeaderAction>
-			<HeaderActionLink icon={Logout} on:click={() => signOut()} />
+			<HeaderActionLink
+				icon={Logout}
+				on:click={() => {
+					signOut();
+					toasts.reset();
+				}}
+			/>
 		{:else}
 			<HeaderActionLink icon={Login} on:click={() => signIn()} />
 		{/if}

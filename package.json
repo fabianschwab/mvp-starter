@@ -38,6 +38,7 @@
 	"dependencies": {
 		"@auth/core": "^0.34.2",
 		"@auth/sveltekit": "^1.4.2",
-		"dotenv": "^16.4.5"
+		"dotenv": "^16.4.5",
+		"svelte-persisted-store": "^0.11.0"
 	}
 }
