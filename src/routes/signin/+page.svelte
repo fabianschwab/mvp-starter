@@ -32,7 +32,7 @@
 						signIn('credentials', { password });
 						addToast({
 							title: 'Signed in with shared user!',
-							subtitle:
+							caption:
 								'Shared users are not recommended, because of side effects when more real world users change data. Please use your own user account.',
 							kind: ToastKind.Warning
 						});
