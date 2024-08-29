@@ -9,6 +9,16 @@
 	import { Button, TextInput } from 'carbon-components-svelte';
 	import { IbmCloudAppId, Password, Unlocked } from 'carbon-icons-svelte';
 	let password = '';
+
+	function handleLogin() {
+		signIn('credentials', { password: password.trim() });
+		addToast({
+			title: 'Signed in with shared user!',
+			caption:
+				'Shared users are not recommended, because of side effects when more real world users change data. Please use your own user account.',
+			kind: ToastKind.Warning
+		});
+	}
 </script>
 
 <div class="flex flex-col justify-center gap-8 w-full items-center">
@@ -23,21 +33,9 @@
 					hideLabel
 					bind:value={password}
 					type="password"
+					on:change={handleLogin}
 				/>
-				<Button
-					size="field"
-					kind="primary"
-					icon={Unlocked}
-					on:click={() => {
-						signIn('credentials', { password });
-						addToast({
-							title: 'Signed in with shared user!',
-							caption:
-								'Shared users are not recommended, because of side effects when more real world users change data. Please use your own user account.',
-							kind: ToastKind.Warning
-						});
-					}}>Sign In</Button
-				>
+				<Button size="field" kind="primary" icon={Unlocked} on:click={handleLogin}>Sign In</Button>
 			</div>
 		{/if}
 		{#if PUBLIC_ENABLE_APPID === 'true' || PUBLIC_ENABLE_KEYCLOAK === 'true'}
