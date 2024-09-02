@@ -3,6 +3,10 @@ import { persisted } from 'svelte-persisted-store';
 export const toasts = persisted<{ id: string; props: Toast }[]>('toasts', []);
 
 export const addToast = (toast: Toast) => {
+	if (toast.hideCloseButton && !toast.timeout) {
+		throw new Error('If you hide the close button, you need to set a timeout.');
+	}
+
 	const id = self.crypto.randomUUID();
 
 	// Push the toast to the top of the list of toasts
@@ -14,6 +18,10 @@ export const addToast = (toast: Toast) => {
 
 export const dismissToast = (id: string) => {
 	toasts.update((all) => all.filter((t) => t.id !== id));
+};
+
+export const clearToasts = () => {
+	toasts.set([]);
 };
 
 export type Toast = {

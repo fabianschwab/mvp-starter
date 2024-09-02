@@ -4,7 +4,7 @@
 </script>
 
 {#if $toasts}
-	<div class="fixed top-12 right-1 overflow-scroll z-50 toasts">
+	<div class="fixed top-12 right-0 overflow-scroll z-50 toasts">
 		{#each $toasts as toast (toast.id)}
 			<ToastNotification
 				on:close={() => {

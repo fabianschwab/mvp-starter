@@ -1,3 +1,16 @@
 /* @tailwind base; */
 @tailwind components;
 @tailwind utilities;
+
+h1 {
+	@apply mb-4;
+}
+
+p {
+	@apply text-base;
+}
+
+ul {
+	@apply text-base ml-8 my-4;
+	list-style: circle;
+}

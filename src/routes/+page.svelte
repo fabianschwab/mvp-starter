@@ -20,20 +20,6 @@
 </p>
 
 <style>
-	p {
-		margin-bottom: 1rem;
-		margin-top: 0.5rem;
-	}
-
-	ul {
-		margin-left: 2rem;
-		list-style: circle;
-
-		& li {
-			line-height: 1.2rem;
-		}
-	}
-
 	code {
 		font-weight: bold;
 	}
