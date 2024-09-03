@@ -1,24 +1,6 @@
-<script lang="ts">
-	import type { Kudo } from '../kudos';
-
-	export let kudo: Kudo;
-</script>
-
-<div class="header">{kudo.to}</div>
-<div class="kudo-kind">{kudo.kind}</div>
-<div class="content">
-	<div>{kudo.message}</div>
-	<svg
-		version="1.1"
-		xmlns="http://www.w3.org/2000/svg"
-		xmlns:xlink="http://www.w3.org/1999/xlink"
-		x="0px"
-		y="0px"
-		viewBox="0 0 32 32"
-	>
-		<path
-			stroke="currentColor"
-			d="M19.36,31h-0.72v-3.143l-8.28,2.16V31H9.64v-0.795l-0.549,0.144c-0.093,0.024-0.192,0.01-0.274-0.039
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	viewBox="0 0 32 32">
+	<path fill="currentColor" d="M19.36,31h-0.72v-3.143l-8.28,2.16V31H9.64v-0.795l-0.549,0.144c-0.093,0.024-0.192,0.01-0.274-0.039
 	s-0.143-0.129-0.166-0.223l-0.5-2c-0.048-0.191,0.067-0.386,0.258-0.436L9.64,27.33v-1.97H9c-0.199,0-0.36-0.161-0.36-0.36v-2
 	c0-0.199,0.161-0.36,0.36-0.36h0.64v-1.419c-1.292-0.711-2-2.198-2-4.221V5.5c0-1.025,0.834-1.86,1.86-1.86s1.86,0.834,1.86,1.86
 	v3.531c0.315-0.245,0.711-0.391,1.14-0.391c0.615,0,1.161,0.3,1.5,0.761c0.339-0.461,0.885-0.761,1.5-0.761
@@ -35,39 +17,5 @@
 	c0-0.628-0.512-1.14-1.14-1.14S8.36,4.872,8.36,5.5V17c0,1.061,0.233,2.949,1.792,3.674C10.279,20.732,10.36,20.86,10.36,21V22.64z
 	 M14.36,13.5v1c0,0.607,0.533,1.14,1.14,1.14c0.628,0,1.14-0.512,1.14-1.14v-4c0-0.628-0.512-1.14-1.14-1.14s-1.14,0.512-1.14,1.14
 	C14.36,10.5,14.36,13.5,14.36,13.5z M11.36,10.5v3c0,0.607,0.533,1.14,1.14,1.14c0.628,0,1.14-0.512,1.14-1.14v-3
-	c0-0.628-0.512-1.14-1.14-1.14S11.36,9.872,11.36,10.5z"
-		/>
-	</svg>
-</div>
-<div class="footer">
-	<div>{kudo.from}</div>
-	<div>{kudo.date.toLocaleString()}</div>
-</div>
-
-<style>
-	.header {
-		@apply p-2 text-sm text-center;
-		background-color: var(--cds-inverse-support-04);
-		color: var(--cds-text-inverse);
-	}
-
-	.kudo-kind {
-		@apply pt-2 text-center font-bold text-xl;
-		color: var(--cds-inverse-support-04);
-	}
-
-	.content {
-		@apply flex justify-between p-4 text-base;
-	}
-
-	svg {
-		@apply min-h-20 min-w-20 max-h-20 max-w-20;
-		color: var(--cds-inverse-support-04);
-	}
-
-	.footer {
-		@apply flex justify-between p-2 text-xs;
-		background-color: var(--cds-ui-03);
-		color: var(--cds-text-05);
-	}
-</style>
+	c0-0.628-0.512-1.14-1.14-1.14S11.36,9.872,11.36,10.5z" />
+</svg>
