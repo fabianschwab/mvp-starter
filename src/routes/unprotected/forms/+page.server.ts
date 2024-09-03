@@ -3,9 +3,11 @@ import { z } from 'zod';
 import { fail, message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions } from '@sveltejs/kit';
-import { KudoKind, type Kudo } from './kudos';
+import { KudoKind, type Kudo } from '$lib/types/kudos';
 
-const schema = z.object({
+let kudos: Kudo[] = [];
+
+const createKudoSchema = z.object({
 	kind: z.enum([
 		KudoKind.Congrats,
 		KudoKind.GreatJob,
@@ -18,15 +20,20 @@ const schema = z.object({
 	message: z.string().min(10).max(100)
 });
 
-export const load: PageServerLoad = async () => {
-	const form = await superValidate(zod(schema));
+const deleteKudoSchema = z.object({
+	kudoId: z.string()
+});
 
-	return { form: form };
+export const load: PageServerLoad = async () => {
+	const form = await superValidate(zod(createKudoSchema));
+
+	// Database select or something else running server sided.
+	return { form, kudos };
 };
 
 export const actions: Actions = {
 	createKudo: async ({ request }) => {
-		const form = await superValidate(request, zod(schema));
+		const form = await superValidate(request, zod(createKudoSchema));
 
 		if (!form.valid) {
 			return fail(400, { form });
@@ -42,6 +49,20 @@ export const actions: Actions = {
 			date: new Date()
 		};
 
-		return message(form, { text: 'Form submitted successfully', kudo });
+		kudos.push(kudo);
+
+		return message(form, 'Form submitted successfully');
+	},
+	deleteKudo: async ({ request }) => {
+		// Database delete or something else running server sided.
+		const form = await superValidate(request, zod(deleteKudoSchema));
+
+		if (!form.valid) {
+			return fail(400, { form });
+		}
+
+		kudos = kudos.filter((kudo) => kudo.id !== form.data.kudoId);
+
+		return message(form, 'Kudo deleted successfully');
 	}
 };

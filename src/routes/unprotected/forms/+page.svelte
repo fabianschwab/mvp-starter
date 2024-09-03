@@ -9,26 +9,24 @@
 	} from 'carbon-components-svelte';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms';
-	import { KudoKind, addKudo } from './kudos';
+	import { KudoKind } from '$lib/types/kudos';
 	import { addToast, ToastKind } from '$lib/client/Notifications';
-	import List from './Kudos/List.svelte';
+	import List from '$lib/components/Kudos/List.svelte';
 
 	export let data: PageData;
 
 	const { form, enhance, errors, message } = superForm(data.form);
 
+	$: kudos = data.kudos;
 	$: if ($message) {
 		// Add Toast
 		addToast({
-			title: $message.text,
+			title: $message,
 			caption: new Date().toLocaleString(),
 			kind: ToastKind.Success,
 			hideCloseButton: true,
 			timeout: 3000
 		});
-
-		// Add Kudo
-		addKudo($message.kudo);
 	}
 </script>
 
@@ -78,4 +76,4 @@
 		<Button kind="secondary" type="reset">Reset</Button>
 	</ButtonSet>
 </form>
-<List />
+<List {kudos} />

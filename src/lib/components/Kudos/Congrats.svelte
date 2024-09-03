@@ -1,10 +1,17 @@
 <script lang="ts">
-	import type { Kudo } from '../kudos';
+	import { enhance } from '$app/forms';
+	import type { Kudo } from '$lib/types/kudos';
+	import { TooltipIcon } from 'carbon-components-svelte';
+	import { TrashCan } from 'carbon-icons-svelte';
 
 	export let kudo: Kudo;
 </script>
 
-<div class="header">{kudo.to}</div>
+<div class="header">
+	<div>
+		{kudo.to}
+	</div>
+</div>
 <div class="kudo-kind">{kudo.kind}</div>
 <div class="content">
 	<div>{kudo.message}</div>
@@ -56,15 +63,25 @@
 <div class="footer">
 	<div>{kudo.from}</div>
 	<div>{kudo.date.toLocaleString()}</div>
+	<form use:enhance action="?/deleteKudo" method="POST">
+		<input type="hidden" name="kudoId" value={kudo.id} />
+		<button class="deleteIconButton" type="submit"
+			><TooltipIcon tooltipText="Delete" icon={TrashCan}></TooltipIcon></button
+		>
+	</form>
 </div>
 
 <style>
+	.deleteIconButton {
+		@apply bg-transparent border-none m-2 text-xs;
+		color: var(--cds-text-inverse);
+	}
+
 	.header {
 		@apply p-2 text-sm text-center;
 		background-color: var(--cds-inverse-support-02);
 		color: var(--cds-text-inverse);
 	}
-
 	.kudo-kind {
 		@apply pt-2 text-center font-bold text-xl;
 		color: var(--cds-inverse-support-02);
@@ -80,8 +97,8 @@
 	}
 
 	.footer {
-		@apply flex justify-between p-2 text-xs;
+		@apply flex justify-between px-2 text-xs items-center;
 		background-color: var(--cds-ui-03);
-		color: var(--cds-text-05);
+		color: var(--cds-icon-02);
 	}
 </style>
