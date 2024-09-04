@@ -9,6 +9,7 @@ Basic parts of this starter:
   - KeyCloak already implemented
   - Included compose file to spin up KeyCloak locally
   - IBM AppID also already implemented
+  - Credentials
 - IBM Carbon Design
   - Components
   - Icons
@@ -19,8 +20,10 @@ Basic parts of this starter:
   - Protected API
   - Protected Paths and Components examples
 - Health endpoints
+- Notification System persisted in local storage
+- Drizzle ORM
 
-## Quick start
+## TL;DR
 
 After cloning the repository run the `./run.sh` script. This will install the dependencies, ask you for all necessary environment variables and starts the dev server.
 
