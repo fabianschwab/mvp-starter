@@ -83,7 +83,7 @@
 	.wrapper {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-		gap: 4rem;
+		gap: 8rem;
 	}
 
 	.deleteIconButton {
@@ -97,7 +97,7 @@
 	}
 
 	.kind {
-		@apply p-2 text-base text-center;
+		@apply p-2 pt-8 text-base text-center;
 		background-color: var(--cds-ui-01);
 	}
 	.content {

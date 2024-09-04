@@ -71,9 +71,7 @@
 		labelText="Message"
 		placeholder="Enter a message for the person ..."
 	/>
-	<ButtonSet class="fullWidth">
-		<Button kind="primary" type="submit">Add Kudo</Button>
-		<Button kind="secondary" type="reset">Reset</Button>
-	</ButtonSet>
+	<Button kind="primary" type="submit">Add Kudo</Button>
+	<Button kind="secondary" type="reset">Reset</Button>
 </form>
 <List {kudos} />
