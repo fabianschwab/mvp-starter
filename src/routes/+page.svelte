@@ -1,7 +1,7 @@
 <h1>Welcome!</h1>
 <h2>This is the landing page of the application!</h2>
 <p>Is sample app provides a simple way to get started with SvelteKit.</p>
-<ul>
+<ul class="default-list">
 	<li>IBM Carbon Design <a href="https://svelte.carbondesignsystem.com/">Svelte Components</a></li>
 	<li>Light and Dark mode</li>
 	<li>

@@ -3,7 +3,7 @@
 
 <h2>Learn about concepts in this starter application:</h2>
 
-<ul>
+<ul class="default-list">
 	<li>
 		<a href="/unprotected/toasts">Toast notification system</a>
 	</li>

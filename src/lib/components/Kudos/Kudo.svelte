@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { AspectRatio } from 'carbon-components-svelte';
 	import { KudoKind, type Kudo } from '$lib/types/kudos';
-	import { enhance } from '$app/forms';
-
-	import { TooltipIcon } from 'carbon-components-svelte';
-	import { TrashCan } from 'carbon-icons-svelte';
-	export let kudos: Kudo[] = [];
+	export let kudo: Kudo;
+	import Awesome from './Icons/Awesome.svelte';
+	import Done from './Icons/Done.svelte';
+	import Job from './Icons/Job.svelte';
+	import Thanks from './Icons/Thanks.svelte';
+	import Congrats from './Icons/Congrats.svelte';
 
 	function getKudoClass(kind: KudoKind, type: 'background' | 'foreground'): string {
 		switch (kind) {
@@ -23,59 +24,43 @@
 				return '';
 		}
 	}
-	function getKudoIcon(kind: KudoKind): string {
+	function getKudoIcon(kind: KudoKind) {
 		switch (kind) {
 			case KudoKind.GreatJob:
-				return 'job.svg';
+				return Job;
 			case KudoKind.ThankYou:
-				return 'thanks.svg';
+				return Thanks;
 			case KudoKind.WellDone:
-				return 'done.svg';
+				return Done;
 			case KudoKind.Congrats:
-				return 'congrats.svg';
+				return Congrats;
 			case KudoKind.TotallyAwesome:
-				return 'awesome.svg';
+				return Awesome;
 			default:
-				return 'default.svg';
+				return Awesome;
 		}
 	}
 </script>
 
-<h2 class="my-4">Kudos</h2>
-<div class="wrapper">
-	{#if kudos.length === 0}
-		<p>No Kudos</p>
-	{/if}
-	{#each kudos as kudo (kudo.id)}
-		<AspectRatio ratio="16x9">
-			<div class="header {getKudoClass(kudo.kind, 'background')}">
-				{kudo.to}
-			</div>
-			<div class="kind {getKudoClass(kudo.kind, 'foreground')}">
-				{kudo.kind}
-			</div>
-			<div class="content">
-				{kudo.message}
-				<object
-					type="image/svg+xml"
-					data={`/kudos/${getKudoIcon(kudo.kind)}`}
-					title="icon"
-					class="h-24 w-24 {getKudoClass(kudo.kind, 'foreground')}"
-				/>
-			</div>
-			<div class="footer">
-				<div>{kudo.from}</div>
-				<div>{kudo.date.toLocaleString()}</div>
-				<form use:enhance action="?/deleteKudo" method="POST">
-					<input type="hidden" name="kudoId" value={kudo.id} />
-					<button class="deleteIconButton" type="submit"
-						><TooltipIcon tooltipText="Delete" icon={TrashCan}></TooltipIcon></button
-					>
-				</form>
-			</div>
-		</AspectRatio>
-	{/each}
-</div>
+<AspectRatio ratio="16x9">
+	<div class="header {getKudoClass(kudo.kind, 'background')}">
+		{kudo.to}
+	</div>
+	<div class="kind {getKudoClass(kudo.kind, 'foreground')}">
+		{kudo.kind}
+	</div>
+	<div class="content">
+		{kudo.message}
+		<div class="min-h-24 min-w-24 max-h-24 max-w-24 {getKudoClass(kudo.kind, 'foreground')}">
+			<svelte:component this={getKudoIcon(kudo.kind)} />
+		</div>
+	</div>
+	<div class="footer">
+		<div>{kudo.from}</div>
+		<div>{kudo.date.toLocaleString()}</div>
+		<slot name="deleteButtonForm" />
+	</div>
+</AspectRatio>
 
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Butterfly+Kids&family=Lovers+Quarrel&family=New+Rocker&family=Peralta&family=Playwrite+CU:wght@100..400&display=swap');
@@ -84,11 +69,6 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 		gap: 8rem;
-	}
-
-	.deleteIconButton {
-		@apply bg-transparent border-none m-2 text-xs;
-		color: var(--cds-text-inverse);
 	}
 
 	.header {

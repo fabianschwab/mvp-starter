@@ -21,14 +21,15 @@ const createKudoSchema = z.object({
 });
 
 const deleteKudoSchema = z.object({
-	kudoId: z.string()
+	kudoId: z.string().min(1, { message: 'Kudo ID is required' })
 });
 
 export const load: PageServerLoad = async () => {
-	const form = await superValidate(zod(createKudoSchema));
+	const createKudoForm = await superValidate(zod(createKudoSchema));
+	const deleteKudoForm = await superValidate(zod(deleteKudoSchema));
 
 	// Database select or something else running server sided.
-	return { form, kudos };
+	return { createKudoForm, deleteKudoForm, kudos };
 };
 
 export const actions: Actions = {
@@ -51,7 +52,7 @@ export const actions: Actions = {
 
 		kudos.push(kudo);
 
-		return message(form, 'Form submitted successfully');
+		return message(form, 'Kudo created successfully');
 	},
 	deleteKudo: async ({ request }) => {
 		// Database delete or something else running server sided.
@@ -60,7 +61,6 @@ export const actions: Actions = {
 		if (!form.valid) {
 			return fail(400, { form });
 		}
-
 		kudos = kudos.filter((kudo) => kudo.id !== form.data.kudoId);
 
 		return message(form, 'Kudo deleted successfully');

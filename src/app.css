@@ -10,7 +10,7 @@ p {
 	@apply text-base;
 }
 
-ul {
+ul.default-list {
 	@apply text-base ml-8 my-4;
 	list-style: circle;
 }
