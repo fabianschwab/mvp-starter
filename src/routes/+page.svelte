@@ -26,10 +26,9 @@
 		Toast <a href="/unprotected/toasts">notification</a> system based on IBM Carbon Components
 	</li>
 	<li>
-		<strong>WIP: </strong><a href="https://orm.drizzle.team/">Drizzle</a> ORM to connect to a database
-		of your choice. As example sqlite is used to keep dependencies low.
+		<a href="https://orm.drizzle.team/">Drizzle</a> ORM to connect to a database of your choice. As example
+		sqlite is used to keep dependencies low.
 	</li>
-	<li><strong>WIP: </strong>User Settings</li>
 </ul>
 <p>
 	If you want the complete application to be secure it's maybe better to make exceptions paths in
