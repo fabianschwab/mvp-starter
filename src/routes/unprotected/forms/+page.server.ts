@@ -3,23 +3,28 @@ import { z } from 'zod';
 import { fail, message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions } from '@sveltejs/kit';
-import { KudoKind } from '$lib/types/kudos';
+// import { KudoKind } from '$lib/types/kudos';
 import { db } from '$lib/server/db';
 import { Kudos } from '$lib/server/schema';
 import { eq } from 'drizzle-orm';
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 
-const createKudoSchema = z.object({
-	kind: z.enum([
-		KudoKind.Congrats,
-		KudoKind.GreatJob,
-		KudoKind.ThankYou,
-		KudoKind.TotallyAwesome,
-		KudoKind.WellDone
-	]),
-	from: z.string().min(3),
-	to: z.string().min(3),
-	message: z.string().min(10).max(100)
-});
+// Instead of writing the validation by yourself, we can use drizzle-zod extension
+// https://orm.drizzle.team/docs/zod
+// const createKudoSchema = z.object({
+// 	kind: z.enum([
+// 		KudoKind.Congrats,
+// 		KudoKind.GreatJob,
+// 		KudoKind.ThankYou,
+// 		KudoKind.TotallyAwesome,
+// 		KudoKind.WellDone
+// 	]),
+// 	from: z.string().min(3),
+// 	to: z.string().min(3),
+// 	message: z.string().min(10).max(100)
+// });
+
+const createKudoSchema = createInsertSchema(Kudos);
 
 const deleteKudoSchema = z.object({
 	kudoId: z.string().min(1, { message: 'Kudo ID is required' })

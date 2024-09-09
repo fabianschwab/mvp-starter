@@ -15,13 +15,14 @@ Basic parts of this starter:
   - Icons
   - Layout
   - Theme switch (light / dark mode)
-- Tailwindcss for easier custom design
+- TailwindCSS for easier custom design
 - Protected Routes
   - Protected API
   - Protected Paths and Components examples
 - Health endpoints
 - Notification System persisted in local storage
 - Drizzle ORM
+  - Zod extension for drizzle
 
 ## TL;DR
 
@@ -201,10 +202,3 @@ export ORIGIN=http://localhost:5173 PORT=5173 node build
 # Change the .env file according to the comments there
 docker run -p 5173:5173 --rm --env-file .env --name <image-name> <image-name>
 ```
-
-## API Documentation
-
-For the API docs SwaggerUI is used and reachable under [http://localhost:5173/api/docs](http://localhost:5173/api/docs).
-You need to be logged in to access the docs.
-
-At the time, there is no automated way to create the api definition out from svelte pages. This must be done manually and defined in the `swagger.json` file in `/src/routes/api/docs/swagger.json`.
