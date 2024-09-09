@@ -25,7 +25,12 @@ Basic parts of this starter:
 
 ## TL;DR
 
-After cloning the repository run the `./run.sh` script. This will install the dependencies, ask you for all necessary environment variables and starts the dev server.
+After cloning the repository run the `./run.sh` script.
+
+- This will install the dependencies
+- Ask you for all necessary environment variables
+- Generate the database
+- Starts the dev server.
 
 ## Developing
 

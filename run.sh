@@ -79,6 +79,10 @@ create_env_file() {
 install_dependencies
 create_env_file
 
+# Generate and push the database
+npm run db:generate
+npm run db:push
+
 # Run the development server
 echo "Starting the development server..."
 npm run dev

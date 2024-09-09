@@ -3,9 +3,10 @@ import { z } from 'zod';
 import { fail, message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions } from '@sveltejs/kit';
-import { KudoKind, type Kudo } from '$lib/types/kudos';
-
-let kudos: Kudo[] = [];
+import { KudoKind } from '$lib/types/kudos';
+import { db } from '$lib/server/db';
+import { Kudos } from '$lib/server/schema';
+import { eq } from 'drizzle-orm';
 
 const createKudoSchema = z.object({
 	kind: z.enum([
@@ -28,7 +29,8 @@ export const load: PageServerLoad = async () => {
 	const createKudoForm = await superValidate(zod(createKudoSchema));
 	const deleteKudoForm = await superValidate(zod(deleteKudoSchema));
 
-	// Database select or something else running server sided.
+	const kudos = await db.select().from(Kudos);
+
 	return { createKudoForm, deleteKudoForm, kudos };
 };
 
@@ -40,17 +42,12 @@ export const actions: Actions = {
 			return fail(400, { form });
 		}
 
-		// Database insert or something else running server sided.
-		const kudo: Kudo = {
-			id: crypto.randomUUID(),
-			kind: form.data.kind as KudoKind,
+		await db.insert(Kudos).values({
+			kind: form.data.kind,
 			from: form.data.from,
 			to: form.data.to,
-			message: form.data.message,
-			date: new Date()
-		};
-
-		kudos.push(kudo);
+			message: form.data.message
+		});
 
 		return message(form, 'Kudo created successfully');
 	},
@@ -61,7 +58,14 @@ export const actions: Actions = {
 		if (!form.valid) {
 			return fail(400, { form });
 		}
-		kudos = kudos.filter((kudo) => kudo.id !== form.data.kudoId);
+
+		const id = parseInt(form.data.kudoId);
+
+		if (Number.isNaN(id)) {
+			return fail(400, { form });
+		}
+
+		await db.delete(Kudos).where(eq(Kudos.id, id));
 
 		return message(form, 'Kudo deleted successfully');
 	}
