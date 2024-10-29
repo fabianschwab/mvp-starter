@@ -3,19 +3,19 @@
 
 	import { Button, Modal, Select, SelectItem, TextInput, Toggle } from 'carbon-components-svelte';
 
-	let kind: ToastKind = ToastKind.Info;
-	let lowContrast: boolean = false;
-	let timeout: number | undefined = undefined;
-	let role: string | undefined = undefined;
-	let title: string | undefined = 'Example toast title';
-	let subtitle: string | undefined = undefined;
-	let caption: string | undefined = undefined;
-	let statusIconDescription: string | undefined = undefined;
-	let closeButtonDescription: string | undefined = undefined;
-	let hideCloseButton: boolean = false;
-	let fullWidth: boolean = false;
+	let kind: ToastKind = $state(ToastKind.Info);
+	let lowContrast: boolean = $state(false);
+	let timeout: number | undefined = $state(undefined);
+	let role: string | undefined = $state(undefined);
+	let title: string | undefined = $state('Example toast title');
+	let subtitle: string | undefined = $state(undefined);
+	let caption: string | undefined = $state(undefined);
+	let statusIconDescription: string | undefined = $state(undefined);
+	let closeButtonDescription: string | undefined = $state(undefined);
+	let hideCloseButton: boolean = $state(false);
+	let fullWidth: boolean = $state(false);
 
-	let open: boolean = false;
+	let open: boolean = $state(false);
 
 	function handleAdd() {
 		if (hideCloseButton && !timeout) {

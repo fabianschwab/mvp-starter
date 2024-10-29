@@ -2,8 +2,8 @@
 	import { onMount } from 'svelte';
 	import { HeaderActionLink } from 'carbon-components-svelte';
 	import { Awake, Asleep } from 'carbon-icons-svelte';
-	
-	let theme: string;
+
+	let theme: string = $state('');
 
 	function handleTheme(newTheme: string) {
 		theme = newTheme;

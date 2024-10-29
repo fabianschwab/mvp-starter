@@ -19,6 +19,12 @@
 	import '../app.css';
 	import { Toasts } from '$lib/components';
 	import { toasts } from '$lib/client/Notifications';
+
+	interface Props {
+		children: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 </script>
 
 <svelte:head>
@@ -26,6 +32,7 @@
 </svelte:head>
 <Toasts />
 <Header href="/" company="IBM" platformName="MVP Name">
+	<!-- @migration-task: migrate this slot by hand, `skip-to-content` is an invalid identifier -->
 	<svelte:fragment slot="skip-to-content">
 		<SkipToContent />
 	</svelte:fragment>
@@ -54,7 +61,7 @@
 </Header>
 <Content>
 	<Grid fullWidth>
-		<slot />
+		{@render children()}
 	</Grid>
 </Content>
 

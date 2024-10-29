@@ -1,12 +1,22 @@
 <script lang="ts">
 	import { AspectRatio } from 'carbon-components-svelte';
-	import { KudoKind, type Kudo } from '$lib/types/kudos';
-	export let kudo: Kudo;
+	import { KudoKind } from '$lib/types/kudos';
 	import Awesome from './Icons/Awesome.svelte';
 	import Done from './Icons/Done.svelte';
 	import Job from './Icons/Job.svelte';
 	import Thanks from './Icons/Thanks.svelte';
 	import Congrats from './Icons/Congrats.svelte';
+	interface Props {
+		kind: string;
+		to: string;
+		from: string;
+		message: string;
+		date: string;
+		id: number;
+		deleteButtonForm: any;
+	}
+
+	let { kind, to, from, message, date, id, deleteButtonForm }: Props = $props();
 
 	function getKudoClass(kind: KudoKind, type: 'background' | 'foreground'): string {
 		switch (kind) {
@@ -43,22 +53,23 @@
 </script>
 
 <AspectRatio ratio="16x9">
-	<div class="header {getKudoClass(kudo.kind, 'background')}">
-		{kudo.to}
+	<div class="header {getKudoClass(kind, 'background')}">
+		{to}
 	</div>
-	<div class="kind {getKudoClass(kudo.kind, 'foreground')}">
-		{kudo.kind}
+	<div class="kind {getKudoClass(kind, 'foreground')}">
+		{kind}
 	</div>
+	{@const SvelteComponent = getKudoIcon(kind)}
 	<div class="content">
-		{kudo.message}
-		<div class="min-h-24 min-w-24 max-h-24 max-w-24 {getKudoClass(kudo.kind, 'foreground')}">
-			<svelte:component this={getKudoIcon(kudo.kind)} />
+		{message}
+		<div class="min-h-24 min-w-24 max-h-24 max-w-24 {getKudoClass(kind, 'foreground')}">
+			<SvelteComponent />
 		</div>
 	</div>
 	<div class="footer">
-		<div>{kudo.from}</div>
-		<div>{kudo.date.toLocaleString()}</div>
-		<slot name="deleteButtonForm" />
+		<div>{from}</div>
+		<div>{date.toLocaleString()}</div>
+		{@render deleteButtonForm(id)}
 	</div>
 </AspectRatio>
 

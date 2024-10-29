@@ -8,7 +8,7 @@
 	import { signIn } from '@auth/sveltekit/client';
 	import { Button, TextInput } from 'carbon-components-svelte';
 	import { IbmCloudAppId, Password, Unlocked } from 'carbon-icons-svelte';
-	let password = '';
+	let password = $state('');
 
 	function handleLogin() {
 		signIn('credentials', { password: password.trim() });

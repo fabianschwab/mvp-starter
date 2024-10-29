@@ -6,10 +6,13 @@
 	import { addToast, ToastKind } from '$lib/client/Notifications';
 	import { Kudo } from '$lib/components';
 
-	import { TooltipIcon } from 'carbon-components-svelte';
 	import { TrashCan } from 'carbon-icons-svelte';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 
 	// Because we have multiple forms, we need to rename the imports to differing them
 	// https://superforms.rocks/concepts/multiple-forms
@@ -20,18 +23,6 @@
 		message: createKudoMessage
 	} = superForm(data.createKudoForm);
 
-	$: kudos = data.kudos;
-	$: if ($createKudoMessage) {
-		// Add Toast
-		addToast({
-			title: $createKudoMessage,
-			caption: new Date().toLocaleString(),
-			kind: ToastKind.Success,
-			hideCloseButton: true,
-			timeout: 3000
-		});
-	}
-
 	const {
 		form: deleteKudoForm,
 		enhance: deleteKudoEnhance,
@@ -39,26 +30,40 @@
 		message: deleteKudoMessage
 	} = superForm(data.deleteKudoForm);
 
-	$: if ($deleteKudoErrors && $deleteKudoErrors.kudoId) {
-		// Add Toast
-		addToast({
-			title: $deleteKudoErrors.kudoId.at(0),
-			caption: new Date().toLocaleString(),
-			kind: ToastKind.Error,
-			hideCloseButton: true,
-			timeout: 3000
-		});
-	}
-	$: if ($deleteKudoMessage) {
-		// Add Toast
-		addToast({
-			title: $deleteKudoMessage,
-			caption: new Date().toLocaleString(),
-			kind: ToastKind.Success,
-			hideCloseButton: true,
-			timeout: 3000
-		});
-	}
+	let kudos = $derived(data.kudos);
+
+	$effect(() => {
+		if ($createKudoMessage) {
+			// Add Toast
+			addToast({
+				title: $createKudoMessage,
+				caption: new Date().toLocaleString(),
+				kind: ToastKind.Success,
+				hideCloseButton: true,
+				timeout: 3000
+			});
+		}
+		if ($deleteKudoErrors && $deleteKudoErrors.kudoId) {
+			// Add Toast
+			addToast({
+				title: $deleteKudoErrors.kudoId.at(0),
+				caption: new Date().toLocaleString(),
+				kind: ToastKind.Error,
+				hideCloseButton: true,
+				timeout: 3000
+			});
+		}
+		if ($deleteKudoMessage) {
+			// Add Toast
+			addToast({
+				title: $deleteKudoMessage,
+				caption: new Date().toLocaleString(),
+				kind: ToastKind.Success,
+				hideCloseButton: true,
+				timeout: 3000
+			});
+		}
+	});
 </script>
 
 <h1>Form validation and sveltekit actions</h1>
@@ -117,13 +122,20 @@
 		<p>No Kudos</p>
 	{:else}
 		{#each kudos as kudo}
-			<Kudo {kudo}>
-				<form slot="deleteButtonForm" use:deleteKudoEnhance action="?/deleteKudo" method="POST">
-					<input type="hidden" name="kudoId" value={kudo.id} />
-					<button class="deleteIconButton" type="submit"
-						><TooltipIcon tooltipText="Delete" icon={TrashCan}></TooltipIcon></button
-					>
-				</form>
+			<Kudo {...kudo}>
+				{#snippet deleteButtonForm(id: string)}
+					<form {id} use:deleteKudoEnhance action="?/deleteKudo" method="POST">
+						<input type="hidden" name="kudoId" value={id} />
+						<Button
+							kind="ghost"
+							type="submit"
+							size="small"
+							tooltipPosition="top"
+							iconDescription="Delete Kudo"
+							icon={TrashCan}
+						/>
+					</form>
+				{/snippet}
 			</Kudo>
 		{/each}
 	{/if}
@@ -134,9 +146,5 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 		gap: 8rem;
-	}
-	.deleteIconButton {
-		@apply bg-transparent border-none m-2 text-xs;
-		color: var(--cds-text-inverse);
 	}
 </style>
