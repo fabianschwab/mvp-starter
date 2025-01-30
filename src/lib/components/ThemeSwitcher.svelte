@@ -1,33 +1,18 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { HeaderActionLink } from 'carbon-components-svelte';
 	import { Awake, Asleep } from 'carbon-icons-svelte';
+	import { persisted } from 'svelte-persisted-store';
 
-	let theme: string = $state('');
+	const theme = persisted<string>('theme', 'g10');
 
-	function handleTheme(newTheme: string) {
-		theme = newTheme;
-		localStorage.setItem('theme', newTheme);
-		document.cookie = `theme=${newTheme}; max-age=${60 * 60 * 24 * 365}; path=/; SameSite=Lax`;
-		document.documentElement.setAttribute('theme', newTheme);
-	}
-
-	onMount(() => {
-		if (typeof window !== 'undefined') {
-			const setTheme = localStorage.getItem('theme');
-			if (setTheme) {
-				theme = setTheme;
-			} else {
-				// Default must be the same as in the hook
-				localStorage.setItem('theme', 'g10');
-				theme = 'g10';
-			}
-		}
+	$effect(() => {
+		document.cookie = `theme=${$theme}; max-age=${60 * 60 * 24 * 365}; path=/; SameSite=Lax`;
+		document.documentElement.setAttribute('theme', $theme);
 	});
 </script>
 
-{#if theme === 'g10'}
-	<HeaderActionLink icon={Asleep} on:click={() => handleTheme('g90')} />
-{:else if theme === 'g90'}
-	<HeaderActionLink icon={Awake} on:click={() => handleTheme('g10')} />
+{#if $theme === 'g10'}
+	<HeaderActionLink icon={Asleep} on:click={() => ($theme = 'g90')} />
+{:else}
+	<HeaderActionLink icon={Awake} on:click={() => ($theme = 'g10')} />
 {/if}
